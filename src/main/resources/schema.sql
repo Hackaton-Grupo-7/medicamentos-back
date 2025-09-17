@@ -1,0 +1,59 @@
+-- =========================================
+-- TABLA USUARIOS
+-- =========================================
+CREATE TABLE IF NOT EXISTS usuarios (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    rol ENUM('ADMIN','USUARIO') DEFAULT 'USUARIO',
+    image BLOB
+);
+
+-- =========================================
+-- TABLA MEDICAMENTOS
+-- =========================================
+CREATE TABLE IF NOT EXISTS medicamentos (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id BIGINT NOT NULL,
+    nombre VARCHAR(150) NOT NULL,
+    dosis VARCHAR(50) NOT NULL, 
+    frecuencia_horas INT NOT NULL, 
+    hora_inicio TIME NOT NULL, 
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NULL, 
+    tomado BOOLEAN DEFAULT FALSE, 
+    activo BOOLEAN DEFAULT TRUE,
+    imagen_url VARCHAR(255),
+    CONSTRAINT fk_medicamento_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+-- =========================================
+-- TABLA ALERGIAS (OPCIONAL)
+-- =========================================
+CREATE TABLE IF NOT EXISTS alergias (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id BIGINT NOT NULL,
+    nombre VARCHAR(150) NOT NULL,
+    descripcion VARCHAR(255),
+    CONSTRAINT fk_alergia_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+-- =========================================
+-- RELACIÓN ALERGIAS - MEDICAMENTOS (OPCIONAL)
+-- =========================================
+CREATE TABLE IF NOT EXISTS alergias_medicamentos (
+    alergia_id BIGINT NOT NULL,
+    medicamento_id BIGINT NOT NULL,
+    PRIMARY KEY (alergia_id, medicamento_id),
+    CONSTRAINT fk_alergia FOREIGN KEY (alergia_id) REFERENCES alergias(id) ON DELETE CASCADE,
+    CONSTRAINT fk_medicamento FOREIGN KEY (medicamento_id) REFERENCES medicamentos(id) ON DELETE CASCADE
+);
+
+-- =========================================
+-- ÍNDICES
+-- =========================================
+-- CREATE INDEX idx_usuarios_email ON usuarios (email);
+-- CREATE INDEX idx_medicamentos_nombre ON medicamentos (nombre);
+-- CREATE INDEX idx_medicamentos_usuario ON medicamentos (usuario_id);
+-- CREATE INDEX idx_alergias_usuario ON alergias (usuario_id);
