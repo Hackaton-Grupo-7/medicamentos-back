@@ -1,0 +1,55 @@
+package hackatongrupo7.medicamentos_grupo7.user;
+
+import hackatongrupo7.medicamentos_grupo7.user.dto.UserMapper;
+import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequest;
+import hackatongrupo7.medicamentos_grupo7.user.dto.UserResponse;
+import hackatongrupo7.medicamentos_grupo7.user.utils.UserServiceHelper;
+import hackatongrupo7.medicamentos_grupo7.utils.EntityUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class UserService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final EntityUtil mapperUtil;
+    private final UserServiceHelper userServiceHelper;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userServiceHelper.findByUsername(username);
+        return new CustomUserDetails(user);
+    }
+
+    public UserResponse getLoggedUser(Long id){
+        return userMapper.toResponse(userServiceHelper.findById(id));
+    }
+
+    public List<UserResponse> getAllUsers() {
+        return mapperUtil.mapEntitiesToDTOs(userRepository.findAll(), userMapper::toResponse);
+    }
+
+    public UserResponse getUserById(Long userId) {
+        return userMapper.toResponse(userServiceHelper.findById(userId));
+    }
+
+
+    public UserResponse updateLoggedUser(UserRequest userRequest, Long id){
+        User user = userServiceHelper.findById(id);
+        userServiceHelper.updateUserData(userRequest, user);
+        return (userMapper.toResponse(user));
+    }
+
+    public void deleteMyUser(Long id){
+        userRepository.deleteById(userServiceHelper.findById(id).getId());
+    }
+
+
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #ffffff;
+          margin: 0;
+          padding: 0;
+        }
+        .email-container {
+          max-width: 600px;
+          margin: 40px auto;
+          background-color: #F4F5F4;
+          border-radius: 10px;
+          padding: 30px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+          color: #76599d;
+          font-size: 24px;
+          margin-bottom: 20px;
+        }
+        p {
+          color: #555555;
+          line-height: 1.6;
+        }
+        ul {
+          color: #555555;
+          padding-left: 20px;
+        }
+        .button, button {
+          display: inline-block;
+          background-color: #76599d;
+          color: #ffffff;
+          text-decoration: none;
+          padding: 6px 10px;
+          border-radius: 5px;
+          font-weight: bold;
+        }
+        .footer {
+          margin-top: 30px;
+          font-size: 0.9em;
+          color: #888888;
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+
+    <img src="https://i.postimg.cc/RZrQfDFs/LOGO.png" alt="Hackaton Logo" style="float: right; width: 80px; height: auto; margin-top: -10px; margin-bottom: 10px;" />
+
+    <h1 th:text="'Welcome, ' + ${userName} + '!'">Welcome to HACKATON!</h1>
+
+    <p>We’re excited to have you join HACKATON — your smart companion for medication management.</p>
+    <p>This app is designed to simplify your daily routine and is thoughtfully adapted for users of all ages.</p>
+    <p>With your new account, you can:</p>
+    <ul>
+        <li>Organize and track your daily medications</li>
+        <li>Receive timely reminders so you never miss a dose</li>
+        <li>Monitor your treatment progress with ease</li>
+    </ul>
+
+
+    <p>Start taking control of your health by logging into your dashboard and setting up your first reminder.</p>
+
+    <button>
+        <a th:href="${dashboardUrl}" style="color: white;" class="button">Go to Dashboard</a>
+    </button>
+
+    <p class="footer">
+        Thank you for trusting HACKATON.<br />
+        We're here to support your well-being, one reminder at a time.<br />
+        — The HACKATON Team 💊 <br />
+        📧 <a href="mailto:hackathon.backend@gmail.com" style="color: #888888;">hackathon.backend@gmail.com</a> &nbsp;|&nbsp;
+        📞 <a href="tel:+1234567890" style="color: #888888;">+1 234 567 890</a>
+    </p>
+</div>
+</body>
+</html>
