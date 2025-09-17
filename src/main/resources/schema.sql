@@ -15,6 +15,16 @@ CREATE TABLE IF NOT EXISTS user_role (
   CONSTRAINT FK_user_role_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE IF NOT EXISTS medication (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name_of_pills VARCHAR(100) NOT NULL,
+    pills_per_week INT NOT NULL CHECK (pills_per_week > 0),
+    last_taken DATE NOT NULL,
+    next_buy_date DATE NOT NULL,
+    user_id BIGINT NOT NULL,
+    CONSTRAINT FK_medication_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 ---- =========================================
 ---- TABLA USUARIOS
 ---- =========================================
