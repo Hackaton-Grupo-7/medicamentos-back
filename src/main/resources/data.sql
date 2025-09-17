@@ -1,0 +1,242 @@
+-- =========================================
+-- USUARIOS
+-- =========================================
+INSERT INTO usuarios (nombre, email, password, rol)
+VALUES 
+('Usuario Demo', 'demo@correo.com', '1234', 'USUARIO'),
+('Admin Test', 'admin@correo.com', 'admin123', 'ADMIN'),
+('Juan Pérez', 'juan.perez@mail.com', 'juan123', 'USUARIO'),
+('María López', 'maria.lopez@mail.com', 'maria123', 'USUARIO');
+
+-- =========================================
+-- MEDICAMENTOS
+-- =========================================
+-- 1. Antiinflamatorios (20)
+INSERT INTO medicamentos (nombre, dosis, frecuencia_horas, hora_inicio, fecha_inicio, fecha_fin, activo, tomado, usuario_id) VALUES
+('Ibuprofeno','400mg',8,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Naproxeno','500mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Diclofenaco','50mg',8,'07:30:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Ketoprofeno','100mg',12,'08:30:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Celecoxib','200mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Meloxicam','15mg',24,'09:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Indometacina','25mg',12,'08:45:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Piroxicam','20mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Etoricoxib','60mg',24,'06:30:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Nabumetona','500mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Fenbufeno','200mg',12,'09:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Flurbiprofeno','100mg',8,'07:15:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Ketorolaco','10mg',6,'06:45:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Sulindaco','150mg',12,'08:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Aceclofenaco','100mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Nimesulida','100mg',12,'10:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Diflunisal','250mg',12,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Tolmetina','400mg',12,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Fenoprofeno','300mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Bromfenac','40mg',12,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 4);
+
+-- 2. Analgésicos (20)
+INSERT INTO medicamentos (nombre, dosis, frecuencia_horas, hora_inicio, fecha_inicio, fecha_fin, activo, tomado, usuario_id) VALUES
+('Paracetamol','500mg',8,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Metamizol','575mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Tramadol','50mg',8,'07:30:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Codeína','30mg',12,'08:30:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Oxycodona','10mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Fentanilo','25mcg',24,'09:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Hidrocodona','10mg',12,'08:45:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Buprenorfina','5mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Nalbupina','10mg',24,'06:30:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Pentazocina','50mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Propoxifeno','50mg',12,'09:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Meperidina','50mg',8,'07:15:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Tapentadol','50mg',6,'06:45:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Dextropropoxifeno','100mg',12,'08:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Nefopam','30mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Fenazona','100mg',12,'10:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Acetaminofeno','500mg',12,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Ketorolaco','10mg',12,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Flupirtina','100mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Bupivacaína','20mg',12,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 4);
+
+-- 3. Antibióticos (20)
+INSERT INTO medicamentos (nombre, dosis, frecuencia_horas, hora_inicio, fecha_inicio, fecha_fin, activo, tomado, usuario_id) VALUES
+('Amoxicilina','500mg',12,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Cefalexina','500mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Azitromicina','250mg',24,'07:30:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Claritromicina','500mg',12,'08:30:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Doxiciclina','100mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Ciprofloxacino','500mg',12,'09:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Levofloxacino','500mg',12,'08:45:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Metronidazol','500mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Gentamicina','80mg',24,'06:30:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Clindamicina','300mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Sulfametoxazol','800mg',12,'09:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Trimetoprim','160mg',8,'07:15:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Vancomicina','1g',6,'06:45:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Eritromicina','500mg',12,'08:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Penicilina','500mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Tetraciclina','500mg',12,'10:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Rifampicina','300mg',12,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Linezolid','600mg',12,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Nitrofurantoína','100mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Moxifloxacino','400mg',12,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 4);
+
+-- 4. Antivirales (20)
+INSERT INTO medicamentos (nombre, dosis, frecuencia_horas, hora_inicio, fecha_inicio, fecha_fin, activo, tomado, usuario_id) VALUES
+('Aciclovir','400mg',8,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Valaciclovir','500mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Famciclovir','250mg',8,'07:30:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Ganciclovir','250mg',12,'08:30:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Oseltamivir','75mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Zanamivir','10mg',24,'09:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Remdesivir','100mg',12,'08:45:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Ribavirina','200mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Foscarnet','40mg',24,'06:30:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Idoxuridina','100mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Cidofovir','50mg',12,'09:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Letermovir','240mg',8,'07:15:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Abacavir','300mg',6,'06:45:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Lamivudina','150mg',12,'08:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Tenofovir','300mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Efavirenz','600mg',12,'10:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Dolutegravir','50mg',12,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Ritonavir','100mg',12,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Darunavir','400mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Emtricitabina','200mg',12,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 4);
+
+-- 5. Antifúngicos (20)
+INSERT INTO medicamentos (nombre, dosis, frecuencia_horas, hora_inicio, fecha_inicio, fecha_fin, activo, tomado, usuario_id) VALUES
+('Fluconazol','150mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Itraconazol','200mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Ketoconazol','100mg',24,'07:30:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Voriconazol','200mg',12,'08:30:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Posaconazol','300mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Anfotericina B','50mg',24,'09:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Terbinafina','250mg',12,'08:45:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Caspofungina','50mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Micafungina','100mg',24,'06:30:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Flucitosina','250mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Griseofulvina','500mg',12,'09:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Ketoconazol tópico','2%',8,'07:15:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Itraconazol tópico','1%',6,'06:45:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Econazol','1%',12,'08:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Miconazol','2%',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Clotrimazol','1%',12,'10:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Amorolfina','5%',12,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Nistatina','100000UI',12,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Terbinafina tópica','1%',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Ciclopirox','1%',12,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 4);
+
+-- 6. Antipiréticos (20)
+INSERT INTO medicamentos (nombre, dosis, frecuencia_horas, hora_inicio, fecha_inicio, fecha_fin, activo, tomado, usuario_id) VALUES
+('Paracetamol','500mg',8,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Metamizol','575mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Aspirina','500mg',12,'07:30:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Ibuprofeno','400mg',8,'08:30:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Naproxeno','500mg',12,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Diclofenaco','50mg',12,'09:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Ketoprofeno','100mg',24,'08:45:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Celecoxib','200mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Meloxicam','15mg',24,'06:30:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Indometacina','25mg',12,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Piroxicam','20mg',12,'09:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Etoricoxib','60mg',12,'07:15:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Nabumetona','500mg',24,'06:45:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Fenbufeno','200mg',12,'08:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Flurbiprofeno','100mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Ketorolaco','10mg',12,'10:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Sulindaco','150mg',12,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Aceclofenaco','100mg',12,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Nimesulida','100mg',12,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Diflunisal','250mg',12,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 4);
+
+-- 7. Antihipertensivos (20)
+INSERT INTO medicamentos (nombre, dosis, frecuencia_horas, hora_inicio, fecha_inicio, fecha_fin, activo, tomado, usuario_id) VALUES
+('Enalapril','10mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Lisinopril','20mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Captopril','25mg',12,'07:30:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Ramipril','5mg',24,'08:30:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Losartán','50mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Valsartán','80mg',24,'09:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Telmisartán','40mg',24,'08:45:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Irbesartán','150mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Amlodipino','5mg',24,'06:30:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Nifedipino','30mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Felodipino','5mg',24,'09:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Diltiazem','120mg',24,'07:15:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Verapamilo','80mg',24,'06:45:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Hidroclorotiazida','25mg',24,'08:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Clortalidona','25mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Furosemida','40mg',24,'10:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Spironolactona','50mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Eplerenona','50mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Metildopa','250mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Clonidina','0.1mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 4);
+
+-- 8. Diuréticos (20)
+INSERT INTO medicamentos (nombre, dosis, frecuencia_horas, hora_inicio, fecha_inicio, fecha_fin, activo, tomado, usuario_id) VALUES
+('Furosemida','40mg',12,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Hidroclorotiazida','25mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Clortalidona','25mg',24,'07:30:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Espironolactona','50mg',24,'08:30:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Eplerenona','50mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Tiazidas combinadas','25mg',24,'09:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Bumetanida','1mg',24,'08:45:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Torsemida','10mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Acetazolamida','250mg',24,'06:30:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Metolazona','5mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Indapamida','2.5mg',24,'09:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Amilorida','5mg',24,'07:15:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Triamtereno','50mg',24,'06:45:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Eplerenona','25mg',24,'08:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Espironolactona','25mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Furosemida IV','20mg',12,'10:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Hidroclorotiazida combinada','25mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Clortalidona combinada','25mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Torasemida oral','10mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Bumetanida IV','1mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 4);
+
+-- 9. Antidepresivos (20)
+INSERT INTO medicamentos (nombre, dosis, frecuencia_horas, hora_inicio, fecha_inicio, fecha_fin, activo, tomado, usuario_id) VALUES
+('Fluoxetina','20mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Sertralina','50mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Paroxetina','20mg',24,'07:30:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Citalopram','20mg',24,'08:30:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Escitalopram','10mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Venlafaxina','75mg',24,'09:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Duloxetina','60mg',24,'08:45:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Bupropión','150mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Mirtazapina','30mg',24,'06:30:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Amitriptilina','25mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Nortriptilina','25mg',24,'09:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Imipramina','50mg',24,'07:15:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Clomipramina','25mg',24,'06:45:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Desvenlafaxina','50mg',24,'08:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Trazodona','50mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Vortioxetina','10mg',24,'10:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Agomelatina','25mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Escitalopram','20mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Fluvoxamina','50mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Paroxetina','40mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 4);
+
+-- 10. Antipsicóticos (20)
+INSERT INTO medicamentos (nombre, dosis, frecuencia_horas, hora_inicio, fecha_inicio, fecha_fin, activo, tomado, usuario_id) VALUES
+('Risperidona','2mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Olanzapina','10mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Quetiapina','100mg',24,'07:30:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Aripiprazol','10mg',24,'08:30:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Ziprasidona','20mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Paliperidona','6mg',24,'09:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Clorpromazina','100mg',24,'08:45:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Haloperidol','5mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Levomepromazina','25mg',24,'06:30:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Lurasidona','40mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Asenapina','5mg',24,'09:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Chlorprothixene','10mg',24,'07:15:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Clozapina','100mg',24,'06:45:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Olanzapina oral','5mg',24,'08:15:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Risperidona LA','25mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Quetiapina XR','200mg',24,'10:30:00',CURDATE(),NULL,TRUE,FALSE, 4),
+('Aripiprazol oral','15mg',24,'07:00:00',CURDATE(),NULL,TRUE,FALSE, 1),
+('Paliperidona LA','50mg',24,'08:00:00',CURDATE(),NULL,TRUE,FALSE, 2),
+('Clozapina oral','25mg',24,'09:00:00',CURDATE(),NULL,TRUE,FALSE, 3),
+('Haloperidol oral','2mg',24,'10:00:00',CURDATE(),NULL,TRUE,FALSE, 4);
