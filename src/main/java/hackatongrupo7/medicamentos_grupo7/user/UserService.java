@@ -2,6 +2,7 @@ package hackatongrupo7.medicamentos_grupo7.user;
 
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserMapper;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequest;
+import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequestAdmin;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserResponse;
 import hackatongrupo7.medicamentos_grupo7.user.utils.UserServiceHelper;
 import hackatongrupo7.medicamentos_grupo7.utils.EntityUtil;
@@ -47,9 +48,16 @@ public class UserService implements UserDetailsService {
         return (userMapper.toResponse(user));
     }
 
-    public void deleteMyUser(Long id){
+    public UserResponse updateUserByAdmin(UserRequestAdmin userRequest, Long id){
+        User user = userServiceHelper.findById(id);
+        userServiceHelper.updateUserAdminData(userRequest, user);
+        return (userMapper.toResponse(user));
+    }
+
+    public void deleteUser(Long id){
         userRepository.deleteById(userServiceHelper.findById(id).getId());
     }
+
 
 
 }

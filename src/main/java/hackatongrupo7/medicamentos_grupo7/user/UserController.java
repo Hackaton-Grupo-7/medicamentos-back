@@ -1,6 +1,7 @@
 package hackatongrupo7.medicamentos_grupo7.user;
 
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequest;
+import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequestAdmin;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserResponse;
 import hackatongrupo7.medicamentos_grupo7.utils.ApiMessageDto;
 import jakarta.validation.Valid;
@@ -45,10 +46,26 @@ public class UserController {
         return userService.updateLoggedUser(userRequest, customUserDetails.getId());
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserResponse putUserByAdmin(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                      @RequestBody @Valid UserRequestAdmin userRequest,
+                                      @PathVariable Long id){
+        return userService.updateUserByAdmin(userRequest, customUserDetails.getId());
+    }
+
     @DeleteMapping("/my-user")
     @ResponseStatus(HttpStatus.OK)
     public ApiMessageDto deleteLoggedUser(@AuthenticationPrincipal CustomUserDetails customUserDetails){
-        userService.deleteMyUser(customUserDetails.getId());
+        userService.deleteUser(customUserDetails.getId());
+        return new ApiMessageDto("Account deleted!!");
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ApiMessageDto deleteUserByAdmin(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                           @PathVariable Long id){
+        userService.deleteUser(id);
         return new ApiMessageDto("Account deleted!!");
     }
 }
