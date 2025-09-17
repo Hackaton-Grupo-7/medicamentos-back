@@ -1,0 +1,16 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    container_name: medicamentos_db
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - '7885:3306'
+    volumes:
+      - medicamentos_data:/var/lib/mysql
+
+volumes:
+  medicamentos_data:
