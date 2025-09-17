@@ -1,12 +1,12 @@
 package hackatongrupo7.medicamentos_grupo7.medication;
 
+import hackatongrupo7.medicamentos_grupo7.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.security.core.userdetails.User;
 
 import java.time.LocalDate;
 
