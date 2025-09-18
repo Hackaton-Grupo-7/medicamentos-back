@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.Set;
 
 public record MedicationRequest(
 
@@ -19,6 +20,8 @@ public record MedicationRequest(
 
         Time hour,
 
-        String description
+        String description,
+
+        Set<String> allergies
 ) {
 }

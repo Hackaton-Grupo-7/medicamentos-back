@@ -27,9 +27,28 @@ public class MedicationService {
     private final MedicationMapper medicationMapper;
     private final EntityUtil mapperUtil;
 
-    @Transactional
+         @Transactional
     public MedicationResponseDetails saveMedication(MedicationRequest medication, User user) {
-        Medication saveMedication =  medicationRepository.save(medicationMapper.toEntity(medication, user));
+        
+        List<Medication> existing = medicationRepository.findByUserId(user.getId())
+            .stream()
+            .filter(m -> m.getName().equalsIgnoreCase(medication.name()))
+            .toList();
+        if (!existing.isEmpty()) {
+            throw new IllegalArgumentException("Ya tienes este medicamento añadido.");
+        }
+
+        Medication medEntity = medicationMapper.toEntity(medication, user);
+
+        if (user.getAllergies() != null && medEntity.getAllergies() != null) {
+            for (String allergy : medEntity.getAllergies()) {
+                if (user.getAllergies().contains(allergy)) {
+                    throw new IllegalArgumentException("No puedes añadir este medicamento porque tienes alergia a él.");
+                }
+            }
+        }
+
+        Medication saveMedication = medicationRepository.save(medEntity);
         saveMedication.setActive(true);
         saveMedication.setCreatedAt(LocalDateTime.now());
         return medicationMapper.fromEntityDetails(saveMedication);
