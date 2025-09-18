@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/medicamentos")
+@RequestMapping("/medications")
 public class MedicationController {
 
     private final MedicationService medicationService;
@@ -15,21 +15,18 @@ public class MedicationController {
         this.medicationService = medicationService;
     }
 
-    // Crear medicamento
     @PostMapping
     public ResponseEntity<Medication> create(@RequestBody Medication medication) {
         Medication saved = medicationService.save(medication);
         return ResponseEntity.ok(saved);
     }
 
-    // Listar todos los medicamentos
     @GetMapping
     public ResponseEntity<List<Medication>> getAll() {
         List<Medication> meds = medicationService.findAll();
         return ResponseEntity.ok(meds);
     }
 
-    // Obtener un medicamento por ID
     @GetMapping("/{id}")
     public ResponseEntity<Medication> getById(@PathVariable Long id) {
         return medicationService.findById(id)
@@ -37,14 +34,12 @@ public class MedicationController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Marcar medicamento como tomado
-    @PutMapping("/{id}/tomado")
+    @PutMapping("/{id}/taken")
     public ResponseEntity<Medication> markAsTaken(@PathVariable Long id) {
         Medication updated = medicationService.markAsTaken(id);
         return ResponseEntity.ok(updated);
     }
 
-    // Eliminar medicamento
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         medicationService.delete(id);
