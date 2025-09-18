@@ -1,5 +1,6 @@
 package hackatongrupo7.medicamentos_grupo7.user;
 
+import hackatongrupo7.medicamentos_grupo7.exceptions.EmptyListException;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserMapper;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequest;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequestAdmin;
@@ -34,7 +35,9 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserResponse> getAllUsers() {
-        return mapperUtil.mapEntitiesToDTOs(userRepository.findAll(), userMapper::toResponse);
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()){throw new EmptyListException();}
+        return mapperUtil.mapEntitiesToDTOs(users, userMapper::toResponse);
     }
 
     public UserResponse getUserById(Long userId) {

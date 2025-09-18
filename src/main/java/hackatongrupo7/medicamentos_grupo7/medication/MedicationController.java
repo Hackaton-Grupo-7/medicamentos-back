@@ -6,6 +6,7 @@ import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationResponseDetai
 import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationResponseSummary;
 import hackatongrupo7.medicamentos_grupo7.user.CustomUserDetails;
 import hackatongrupo7.medicamentos_grupo7.utils.ApiMessageDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,14 @@ public class MedicationController {
     @ResponseStatus(HttpStatus.CREATED)
     public MedicationResponseDetails create(
             @AuthenticationPrincipal CustomUserDetails customUserDetails,
-            @RequestBody MedicationRequest medication) {
+            @Valid @RequestBody MedicationRequest medication) {
        return medicationService.saveMedication(medication, customUserDetails.getUser());
+    }
+
+    @GetMapping("/suggestions")
+    @ResponseStatus(HttpStatus.OK)
+    public List<MedicationResponseSummary> getSuggestions(){
+        return medicationService.findMedicationSuggestions();
     }
 
     @GetMapping
