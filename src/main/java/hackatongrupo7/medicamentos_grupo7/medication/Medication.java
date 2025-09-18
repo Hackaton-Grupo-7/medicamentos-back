@@ -26,11 +26,14 @@ public class Medication {
     private Long id;
 
     private String name;
-    private String dose;
+
+    private int dose;
 
     private String hour;
 
     private boolean taken = false;
+
+    private boolean active = true;
 
     private String description;
 

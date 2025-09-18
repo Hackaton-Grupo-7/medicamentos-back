@@ -1,48 +1,66 @@
 package hackatongrupo7.medicamentos_grupo7.medication;
 
+import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationMapper;
+import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationRequest;
+import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationResponseDetails;
+import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationResponseSummary;
+import hackatongrupo7.medicamentos_grupo7.user.CustomUserDetails;
+import hackatongrupo7.medicamentos_grupo7.utils.ApiMessageDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/medications")
+@RequiredArgsConstructor
 public class MedicationController {
 
     private final MedicationService medicationService;
+    private final MedicationMapper medicationMapper;
 
-    public MedicationController(MedicationService medicationService) {
-        this.medicationService = medicationService;
-    }
 
     @PostMapping
-    public ResponseEntity<Medication> create(@RequestBody Medication medication) {
-        Medication saved = medicationService.save(medication);
-        return ResponseEntity.ok(saved);
+    @ResponseStatus(HttpStatus.CREATED)
+    public MedicationResponseDetails create(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @RequestBody MedicationRequest medication) {
+       return medicationService.saveMedication(medication, customUserDetails.getUser());
     }
 
     @GetMapping
-    public ResponseEntity<List<Medication>> getAll() {
-        List<Medication> meds = medicationService.findAll();
-        return ResponseEntity.ok(meds);
+    @ResponseStatus(HttpStatus.OK)
+    public List<MedicationResponseSummary> getAll(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails ){
+        return medicationService.findAllMedicationsByUser(customUserDetails.getUser());
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Medication> getById(@PathVariable Long id) {
-        return medicationService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @ResponseStatus(HttpStatus.OK)
+    public MedicationResponseDetails getById(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @PathVariable Long id) {
+        return medicationService.findById(id, customUserDetails.getUser());
     }
 
     @PutMapping("/{id}/taken")
-    public ResponseEntity<Medication> markAsTaken(@PathVariable Long id) {
-        Medication updated = medicationService.markAsTaken(id);
-        return ResponseEntity.ok(updated);
+    @ResponseStatus(HttpStatus.OK)
+    public MedicationResponseSummary markAsTaken(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @PathVariable Long id) {
+       return medicationService.markAsTaken(id, customUserDetails.getUser());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        medicationService.delete(id);
-        return ResponseEntity.noContent().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ApiMessageDto delete(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @PathVariable Long id) {
+        medicationService.delete(id, customUserDetails.getUser() );
+        return new ApiMessageDto("Delete successfully");
     }
 }

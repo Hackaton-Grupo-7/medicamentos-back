@@ -17,13 +17,26 @@ CREATE TABLE IF NOT EXISTS user_role (
 
 CREATE TABLE IF NOT EXISTS medication (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name_of_pills VARCHAR(100) NOT NULL,
-    pills_per_week INT NOT NULL CHECK (pills_per_week > 0),
-    last_taken DATE NOT NULL,
-    next_buy_date DATE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    dose VARCHAR(255),
+    hour VARCHAR(255),
+    taken BOOLEAN DEFAULT FALSE,
+    active BOOLEAN DEFAULT TRUE,
+    description TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     user_id BIGINT NOT NULL,
     CONSTRAINT FK_medication_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+--CREATE TABLE IF NOT EXISTS medication (
+--    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+--    name_of_pills VARCHAR(100) NOT NULL,
+--    pills_per_week INT NOT NULL CHECK (pills_per_week > 0),
+--    last_taken DATE NOT NULL,
+--    next_buy_date DATE NOT NULL,
+--    user_id BIGINT NOT NULL,
+--    CONSTRAINT FK_medication_user FOREIGN KEY (user_id) REFERENCES users(id)
+--);
 
 ---- =========================================
 ---- TABLA USUARIOS
