@@ -2,9 +2,22 @@ package hackatongrupo7.medicamentos_grupo7.medication;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+
+import java.time.LocalDate;
+
 
 @Entity
-@Table(name = "medications")
+@Table(name = "medication")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Medication {
 
     @Id
@@ -14,7 +27,6 @@ public class Medication {
     private String name;
     private String dose;
 
-    // Hora de toma en formato "HH:mm"
     private String hour;
 
     private boolean taken = false;
@@ -23,25 +35,7 @@ public class Medication {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Getters y setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getDose() { return dose; }
-    public void setDose(String dose) { this.dose = dose; }
-
-    public String getHour() { return hour; }
-    public void setHour(String hour) { this.hour = hour; }
-
-    public boolean isTaken() { return taken; }
-    public void setTaken(boolean taken) { this.taken = taken; }
-
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

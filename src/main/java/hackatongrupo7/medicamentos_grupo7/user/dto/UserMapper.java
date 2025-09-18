@@ -11,6 +11,7 @@ public interface UserMapper {
     UserResponse toResponse(User user);
 
     @Mapping(target = "password", source = "encodedPassword")
+    @Mapping(target = "role", source = "role")
     User toEntity(UserRequest userRequest,  String encodedPassword, Role role);
 
     @Mapping(target = "password", source = "encodedPassword")
