@@ -2,12 +2,15 @@ package hackatongrupo7.medicamentos_grupo7.medication;
 
 import hackatongrupo7.medicamentos_grupo7.user.User;
 import jakarta.persistence.*;
+
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Entity
@@ -29,9 +32,7 @@ public class Medication {
     @Positive
     private int dose;
 
-    @Positive
-    @Max(value = 23)
-    private String hour;
+    private Time hour;
 
     @NotNull
     private boolean taken = false;
@@ -46,5 +47,10 @@ public class Medication {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "medication_allergies", joinColumns = @JoinColumn(name = "medication_id"))
+    @Column(name = "allergy")
+    private Set<String> allergies;
 }
+    

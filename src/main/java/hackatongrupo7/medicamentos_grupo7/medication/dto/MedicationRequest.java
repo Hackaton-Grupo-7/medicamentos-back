@@ -5,7 +5,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import java.sql.Time;
 import java.time.LocalDate;
+import java.util.Set;
 
 public record MedicationRequest(
 
@@ -16,10 +18,10 @@ public record MedicationRequest(
         @Positive
         int dose,
 
-        @Positive
-        @Max(23)
-        String hour,
+        Time hour,
 
-        String description
+        String description,
+
+        Set<String> allergies
 ) {
 }

@@ -1,6 +1,7 @@
 package hackatongrupo7.medicamentos_grupo7.medication.dto;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public record MedicationResponseDetails(
         Long id,
@@ -10,7 +11,8 @@ public record MedicationResponseDetails(
         boolean taken,
         boolean active,
         String description,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        Set<String> allergies
 
 ) {
 }
