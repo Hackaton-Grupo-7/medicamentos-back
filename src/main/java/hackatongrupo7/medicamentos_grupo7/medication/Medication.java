@@ -1,7 +1,7 @@
 package hackatongrupo7.medicamentos_grupo7.medication;
 
-import hackatongrupo7.medicamentos_grupo7.user.User;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -24,22 +24,16 @@ public class Medication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name_of_pills", nullable = false, length = 100)
-    @NotEmpty
-    @Size(max = 100)
-    private String nameOfPills;
+    private String name;
+    private String dose;
 
-    @Column(name = "pills_per_week", nullable = false)
-    @Positive
-    private Integer howMuchTakePerWeek;
+    private String hour;
 
-    @Column(name = "last_taken", nullable = false)
-    @NotNull
-    private LocalDate lastTimeWhenTaked;
+    private boolean taken = false;
 
-    @Column(name = "next_buy_date", nullable = false)
-    @NotNull
-    private LocalDate nextDateToBuy;
+    private String description;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
