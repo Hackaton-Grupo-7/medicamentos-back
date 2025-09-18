@@ -1,0 +1,50 @@
+package hackatongrupo7.medicamentos_grupo7.medication;
+
+import hackatongrupo7.medicamentos_grupo7.user.User;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+import jakarta.validation.constraints.*;
+import lombok.*;
+
+import java.time.LocalDate;
+
+
+@Entity
+@Table(name = "medications")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Medication {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 100)
+    private String name;
+
+    @Positive
+    private int dose;
+
+    @Positive
+    @Max(value = 23)
+    private String hour;
+
+    @NotNull
+    private boolean taken = false;
+
+    @NotNull
+    private boolean active = true;
+
+    private String description;
+
+    private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    
+}

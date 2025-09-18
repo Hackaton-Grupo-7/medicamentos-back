@@ -1,7 +1,9 @@
 package hackatongrupo7.medicamentos_grupo7.user;
 
+import hackatongrupo7.medicamentos_grupo7.exceptions.EmptyListException;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserMapper;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequest;
+import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequestAdmin;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserResponse;
 import hackatongrupo7.medicamentos_grupo7.user.utils.UserServiceHelper;
 import hackatongrupo7.medicamentos_grupo7.utils.EntityUtil;
@@ -33,7 +35,9 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserResponse> getAllUsers() {
-        return mapperUtil.mapEntitiesToDTOs(userRepository.findAll(), userMapper::toResponse);
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()){throw new EmptyListException();}
+        return mapperUtil.mapEntitiesToDTOs(users, userMapper::toResponse);
     }
 
     public UserResponse getUserById(Long userId) {
@@ -47,9 +51,16 @@ public class UserService implements UserDetailsService {
         return (userMapper.toResponse(user));
     }
 
-    public void deleteMyUser(Long id){
+    public UserResponse updateUserByAdmin(UserRequestAdmin userRequest, Long id){
+        User user = userServiceHelper.findById(id);
+        userServiceHelper.updateUserAdminData(userRequest, user);
+        return (userMapper.toResponse(user));
+    }
+
+    public void deleteUser(Long id){
         userRepository.deleteById(userServiceHelper.findById(id).getId());
     }
+
 
 
 }
