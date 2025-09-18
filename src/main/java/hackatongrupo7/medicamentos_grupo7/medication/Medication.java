@@ -2,6 +2,8 @@ package hackatongrupo7.medicamentos_grupo7.medication;
 
 import hackatongrupo7.medicamentos_grupo7.user.User;
 import jakarta.persistence.*;
+
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.*;
@@ -29,9 +31,7 @@ public class Medication {
     @Positive
     private int dose;
 
-    @Positive
-    @Max(value = 23)
-    private String hour;
+    private Time hour;
 
     @NotNull
     private boolean taken = false;
