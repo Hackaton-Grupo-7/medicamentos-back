@@ -15,17 +15,18 @@ CREATE TABLE IF NOT EXISTS user_role (
   CONSTRAINT FK_user_role_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS medication (
+-- Verifica que tu tabla tenga esto:
+CREATE TABLE medication (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    dose VARCHAR(255),
+    name VARCHAR(255),
+    dose INT,
     hour VARCHAR(255),
     taken BOOLEAN DEFAULT FALSE,
     active BOOLEAN DEFAULT TRUE,
     description TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id BIGINT NOT NULL,
-    CONSTRAINT FK_medication_user FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 --CREATE TABLE IF NOT EXISTS medication (

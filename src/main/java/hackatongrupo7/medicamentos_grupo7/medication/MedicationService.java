@@ -6,10 +6,12 @@ import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationResponseDetai
 import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationResponseSummary;
 import hackatongrupo7.medicamentos_grupo7.user.User;
 import hackatongrupo7.medicamentos_grupo7.utils.EntityUtil;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,13 +23,34 @@ public class MedicationService {
     private final MedicationRepository medicationRepository;
     private final MedicationMapper medicationMapper;
     private final EntityUtil mapperUtil;
+    private final EntityManager entityManager;
 
     @Transactional
-    public MedicationResponseDetails saveMedication(MedicationRequest medication, User user) {
-        Medication saveMedication =  medicationRepository.save(medicationMapper.toEntity(medication, user));
-        System.out.println(saveMedication.isActive());
-        System.out.println(saveMedication.isTaken());
-        return medicationMapper.fromEntityDetails(saveMedication);
+    public MedicationResponseDetails saveMedication(MedicationRequest request, User user) {
+        try {
+            Medication medication = new Medication();
+            medication.setName(request.name());
+            medication.setDose(request.dose());
+            medication.setHour(request.hour());
+            medication.setDescription(request.description());
+            medication.setActive(true);
+            medication.setTaken(false);
+            medication.setCreatedAt(LocalDateTime.now());
+
+            User managedUser = entityManager.find(User.class, user.getId());
+            medication.setUser(managedUser);
+
+            medication.setId(null);
+
+            Medication saved = medicationRepository.save(medication);
+
+            return medicationMapper.fromEntityDetails(saved);
+
+        } catch (Exception e) {
+            System.err.println("Error details: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Could not save medication", e);
+        }
     }
 
     public List<MedicationResponseSummary> findAllMedicationsByUser(User user) {
@@ -42,7 +65,7 @@ public class MedicationService {
         Medication medication =  medicationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Id not found"));
 
-        if (medication.getUser().getUsername() != user.getUsername()){
+        if (medication.getUser().getId() != user.getId()){
             throw new RuntimeException("Unauthorized");
         };
 
@@ -65,11 +88,18 @@ public class MedicationService {
         Medication medication = medicationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Medication not found"));
 
-        if (medication.getUser().getUsername() != user.getUsername()){
+        if (!medication.getUser().getUsername().equals(user.getUsername())) {
             throw new RuntimeException("Unauthorized");
-        };
+        }
+
+        if (medication.isTaken()) {
+            return medicationMapper.fromEntitySummary(medication);
+        }
+
 
         medication.setTaken(true);
-        return medicationMapper.fromEntitySummary(medicationRepository.save(medication));
+        Medication savedMedication = medicationRepository.save(medication);
+
+        return medicationMapper.fromEntitySummary(savedMedication);
     }
 }

@@ -31,13 +31,13 @@ public class Medication {
 
     private String hour;
 
-    private boolean taken = false;
+    private boolean taken;
 
-    private boolean active = true;
+    private boolean active;
 
     private String description;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
