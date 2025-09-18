@@ -7,7 +7,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class NotificationService {
 
     @Scheduled(cron = "0 * * * * *")
     public void checkAndSendReminders() {
-        String nowHour = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+        Time nowHour = Time.valueOf(LocalTime.now());
         List<Medication> dueMedications = medicationRepository.findByHourAndNotIsTaken(nowHour);
 
         for (Medication med : dueMedications) {

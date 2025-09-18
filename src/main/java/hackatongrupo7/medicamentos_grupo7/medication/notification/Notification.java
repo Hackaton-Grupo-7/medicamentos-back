@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 
@@ -18,7 +19,7 @@ public class Notification {
     private String name;
     private int dose;
     private String message;
-    private String hour;
+    private Time hour;
     private LocalDateTime createdAt;
 
 }

@@ -40,6 +40,8 @@ public class SecurityConfig {
         return new JwtAuthFilter(restAuthenticationEntryPoint, jwtService, userService, tokenBlacklistService);
     }
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
 
