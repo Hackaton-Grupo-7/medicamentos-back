@@ -21,6 +21,15 @@ public class UserController {
 
     private final UserService userService;
 
+    @PostMapping("/my-user/allergies")
+    @ResponseStatus(HttpStatus.OK)
+    public ApiMessageDto addAllergyToLoggedUser(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @RequestBody String allergy) {
+        userService.addAllergyToUser(customUserDetails.getUser(), allergy);
+        return new ApiMessageDto("Alergia añadida correctamente.");
+    }
+
     @GetMapping
     public List<UserResponse> listAllUsers(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         return userService.getAllUsers();

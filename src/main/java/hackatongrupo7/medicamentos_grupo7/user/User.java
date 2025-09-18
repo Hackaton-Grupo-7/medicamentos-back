@@ -3,6 +3,7 @@ package hackatongrupo7.medicamentos_grupo7.user;
 import hackatongrupo7.medicamentos_grupo7.user.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -31,4 +32,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_allergies", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "allergy")
+    private Set<String> allergies;
 }
