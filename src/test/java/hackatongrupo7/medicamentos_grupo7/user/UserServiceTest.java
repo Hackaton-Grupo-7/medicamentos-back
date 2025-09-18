@@ -184,7 +184,7 @@ public class UserServiceTest {
 
             when(userServiceHelper.findById(99L)).thenReturn(user);
 
-            userService.deleteMyUser(99L);
+            userService.deleteUser(99L);
 
             verify(userRepository).deleteById(99L);
         }
@@ -195,7 +195,7 @@ public class UserServiceTest {
                     .thenThrow(new IllegalArgumentException("User not found"));
 
             assertThrows(IllegalArgumentException.class, () -> {
-                userService.deleteMyUser(99L);
+                userService.deleteUser(99L);
             });
 
             verify(userRepository, never()).deleteById(anyLong());

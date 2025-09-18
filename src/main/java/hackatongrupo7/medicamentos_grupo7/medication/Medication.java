@@ -1,5 +1,6 @@
 package hackatongrupo7.medicamentos_grupo7.medication;
 
+import hackatongrupo7.medicamentos_grupo7.user.User;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import jakarta.validation.constraints.NotEmpty;
@@ -25,17 +26,21 @@ public class Medication {
     private Long id;
 
     private String name;
-    private String dose;
+
+    private int dose;
 
     private String hour;
 
-    private boolean taken = false;
+    private boolean taken;
+
+    private boolean active;
 
     private String description;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    
 }

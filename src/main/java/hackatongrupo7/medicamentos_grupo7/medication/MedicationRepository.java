@@ -11,6 +11,7 @@ import java.util.List;
 public interface MedicationRepository extends JpaRepository<Medication, Long> {
 
     @Query("SELECT m FROM Medication m WHERE m.hour = :hour AND m.taken = false")
-    List<Medication> findByHourAndNotTaken(@Param("hour") String hour);
+    List<Medication> findByHourAndNotIsTaken(@Param("hour") String hour);
 
+    List<Medication> findByUserId(Long id);
 }
