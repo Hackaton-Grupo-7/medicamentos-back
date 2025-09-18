@@ -1,6 +1,7 @@
 package hackatongrupo7.medicamentos_grupo7.user.utils;
 
 
+import hackatongrupo7.medicamentos_grupo7.exceptions.NotFoundException;
 import hackatongrupo7.medicamentos_grupo7.user.User;
 import hackatongrupo7.medicamentos_grupo7.user.UserRepository;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequest;
@@ -19,12 +20,12 @@ public class UserServiceHelper {
 
     public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Username by id does not exist"));
+                .orElseThrow(() -> new NotFoundException("User id"));
     }
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("Username by username does not exist"));
+                .orElseThrow(() -> new NotFoundException("User by username"));
     }
 
     public void validateUserDoesNotExist(String username, String email) {
@@ -42,7 +43,7 @@ public class UserServiceHelper {
 
 
     public void updateUserData(UserRequest request, User user) {
-        validateUserDoesNotExist(user.getUsername(), user.getEmail());
+        validateUserDoesNotExist(request.username(), request.email());
 
         String username = request.username() != null && !request.username().isEmpty()
                 ? request.username() :
@@ -63,7 +64,7 @@ public class UserServiceHelper {
     }
 
     public void updateUserAdminData(UserRequestAdmin request, User user) {
-        validateUserDoesNotExist(user.getUsername(), user.getEmail());
+        validateUserDoesNotExist(request.username(), request.email());
 
         String username = request.username() != null && !request.username().isEmpty()
                 ? request.username() :

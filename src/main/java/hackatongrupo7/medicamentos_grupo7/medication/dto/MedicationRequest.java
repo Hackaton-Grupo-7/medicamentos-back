@@ -1,11 +1,25 @@
 package hackatongrupo7.medicamentos_grupo7.medication.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public record MedicationRequest(
+
+        @NotEmpty
+        @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
         String name,
+
+        @Positive
         int dose,
+
+        @Positive
+        @Max(23)
         String hour,
+
         String description
 ) {
 }

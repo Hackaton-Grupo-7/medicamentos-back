@@ -14,4 +14,7 @@ public interface MedicationRepository extends JpaRepository<Medication, Long> {
     List<Medication> findByHourAndNotIsTaken(@Param("hour") String hour);
 
     List<Medication> findByUserId(Long id);
+
+    List<Medication> findByUserIdOrderByNameAsc(Long Id);
+
 }

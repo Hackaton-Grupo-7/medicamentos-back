@@ -1,5 +1,8 @@
 package hackatongrupo7.medicamentos_grupo7.medication;
 
+import hackatongrupo7.medicamentos_grupo7.exceptions.EmptyListException;
+import hackatongrupo7.medicamentos_grupo7.exceptions.NotFoundException;
+import hackatongrupo7.medicamentos_grupo7.exceptions.UnauthorizedAccessException;
 import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationMapper;
 import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationRequest;
 import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationResponseDetails;
@@ -23,7 +26,7 @@ public class MedicationService {
     private final MedicationRepository medicationRepository;
     private final MedicationMapper medicationMapper;
     private final EntityUtil mapperUtil;
-    private final EntityManager entityManager;
+
     @Transactional
     public MedicationResponseDetails saveMedication(MedicationRequest medication, User user) {
         Medication saveMedication =  medicationRepository.save(medicationMapper.toEntity(medication, user));
@@ -32,20 +35,27 @@ public class MedicationService {
         return medicationMapper.fromEntityDetails(saveMedication);
     }
 
+    @Transactional
+    public List<MedicationResponseSummary> findMedicationSuggestions(){
+        List<Medication> medications = medicationRepository.findByUserIdOrderByNameAsc(1L);
+        if (medications.isEmpty()){throw new EmptyListException();}
+        return mapperUtil.mapEntitiesToDTOs(medications, medicationMapper::fromEntitySummary);
+    }
+
     public List<MedicationResponseSummary> findAllMedicationsByUser(User user) {
         List<Medication> medications = medicationRepository.findByUserId(user.getId());
 
-        if (medications.isEmpty()){throw  new RuntimeException("Empty list");}
+        if (medications.isEmpty()){throw  new EmptyListException();}
 
         return mapperUtil.mapEntitiesToDTOs(medications, medicationMapper::fromEntitySummary);
     }
 
     public MedicationResponseDetails findById(Long id, User user) {
         Medication medication =  medicationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Id not found"));
+                .orElseThrow(() -> new NotFoundException("Medication"));
 
         if (!medication.getUser().getUsername().equals(user.getUsername())) {
-            throw new RuntimeException("Unauthorized");
+            throw new UnauthorizedAccessException();
         }
 
         return medicationMapper.fromEntityDetails(medication);
@@ -54,10 +64,10 @@ public class MedicationService {
 
     public void delete(Long id, User user) {
         Medication medication =  medicationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Id not found"));
+                .orElseThrow(() -> new NotFoundException("Medication"));
 
         if (!medication.getUser().getUsername().equals(user.getUsername())) {
-            throw new RuntimeException("Unauthorized");
+            throw new UnauthorizedAccessException();
         }
 
         medicationRepository.deleteById(id);
@@ -65,10 +75,10 @@ public class MedicationService {
 
     public MedicationResponseSummary markAsTaken(Long id, User user) {
         Medication medication = medicationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Medication not found"));
+                .orElseThrow(() -> new NotFoundException("Medication"));
 
         if (!medication.getUser().getUsername().equals(user.getUsername())) {
-            throw new RuntimeException("Unauthorized");
+            throw new UnauthorizedAccessException();
         }
 
         if (medication.isTaken()) {
