@@ -10,13 +10,11 @@ import java.time.LocalDateTime;
 @Mapper(componentModel = "spring")
 public interface MedicationMapper {
 
-    @Mapping(target = "active", source = "active")
-    @Mapping(target = "taken", source = "taken")
-    @Mapping(target = "createdAt", source = "createdAt")
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", source = "user")
     @Mapping(target = "hour", source = "medicationRequest.hour")
     @Mapping(target = "name", source = "medicationRequest.name")
-    Medication toEntity(MedicationRequest medicationRequest, User user, boolean active, boolean taken, LocalDateTime createdAt);
+    Medication toEntity(MedicationRequest medicationRequest, User user);
 
     @Mapping(target = "name", source = "name")
     @Mapping(target = "dose", source = "dose")

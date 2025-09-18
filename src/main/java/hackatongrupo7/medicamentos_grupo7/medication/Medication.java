@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 
 @Entity
-@Table(name = "medication")
+@Table(name = "medications")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,9 +31,9 @@ public class Medication {
 
     private String hour;
 
-    private boolean taken;
+    private boolean taken = false;
 
-    private boolean active;
+    private boolean active = true;
 
     private String description;
 
