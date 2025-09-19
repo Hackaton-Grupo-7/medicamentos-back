@@ -3,6 +3,7 @@ package hackatongrupo7.medicamentos_grupo7.user;
 import hackatongrupo7.medicamentos_grupo7.user.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")

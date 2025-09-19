@@ -1,7 +1,9 @@
 package hackatongrupo7.medicamentos_grupo7.allergy;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import hackatongrupo7.medicamentos_grupo7.user.CustomUserDetails;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import hackatongrupo7.medicamentos_grupo7.allergy.dtos.AllergyDTORequest;
 import hackatongrupo7.medicamentos_grupo7.allergy.dtos.AllergyDTOResponse;
@@ -9,11 +11,6 @@ import hackatongrupo7.medicamentos_grupo7.allergy.dtos.AllergyDTOResponse;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping(path = "/api/allergies")
@@ -30,12 +27,19 @@ public class AllergyController {
         return service.getAllEntities();
     }
 
+    @GetMapping("/my-user")
+    @ResponseStatus(HttpStatus.OK)
+    public List<AllergyDTOResponse> listAllMyAllergies(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        return service.getAllAllergiesByUser(customUserDetails.getId());
+    }
+
     @PostMapping("")
-    public ResponseEntity<AllergyDTOResponse> postMethodName(@RequestBody AllergyDTORequest dtoRequest) {
+    public ResponseEntity<AllergyDTOResponse> postMethodName(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                                             @RequestBody AllergyDTORequest dtoRequest) {
         if (dtoRequest.name().isBlank())
             return ResponseEntity.badRequest().build();
 
-        AllergyDTOResponse entityStored = service.storeEntity(dtoRequest);
+        AllergyDTOResponse entityStored = service.storeEntity(dtoRequest, customUserDetails.getUser());
 
         if (entityStored == null)
             return ResponseEntity.noContent().build();

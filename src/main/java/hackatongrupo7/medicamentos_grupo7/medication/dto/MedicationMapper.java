@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Mapper(componentModel = "spring")
 public interface MedicationMapper {
 
-    @Mapping(target = "id", ignore = true)
+ @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", source = "user")
     @Mapping(target = "hour", source = "medicationRequest.hour")
     @Mapping(target = "name", source = "medicationRequest.name")
@@ -18,6 +18,7 @@ public interface MedicationMapper {
 
     @Mapping(target = "name", source = "name")
     @Mapping(target = "dose", source = "dose")
+    @Mapping(target = "taken", source = "taken")
     MedicationResponseSummary fromEntitySummary(Medication medication);
 
     @Mapping(target = "name", source = "name")

@@ -10,6 +10,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Entity
@@ -46,5 +47,5 @@ public class Medication {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    
 }
+    

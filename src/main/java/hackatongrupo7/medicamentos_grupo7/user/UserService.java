@@ -1,6 +1,8 @@
 package hackatongrupo7.medicamentos_grupo7.user;
 
 import hackatongrupo7.medicamentos_grupo7.exceptions.EmptyListException;
+import hackatongrupo7.medicamentos_grupo7.medication.Medication;
+import hackatongrupo7.medicamentos_grupo7.medication.MedicationRepository;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserMapper;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequest;
 import hackatongrupo7.medicamentos_grupo7.user.dto.UserRequestAdmin;
@@ -23,6 +25,7 @@ public class UserService implements UserDetailsService {
     private final UserMapper userMapper;
     private final EntityUtil mapperUtil;
     private final UserServiceHelper userServiceHelper;
+    private final MedicationRepository medicationRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
