@@ -6,6 +6,5 @@ public record MedicationResponseSummary(
         Long id,
         String name,
         int dose,
-        boolean taken,
-        Set<String> allergies) {
+        boolean taken) {
 }

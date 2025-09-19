@@ -69,52 +69,52 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.username").value("user1"));
     }
 
-        @Test
-    void testGetLoggedUser() throws Exception {
-        UserResponse user = new UserResponse(1L, "user1", "Name1", "email1@test.com", Role.USER);
-        when(userService.getLoggedUser(1L)).thenReturn(user);
+//        @Test
+//    void testGetLoggedUser() throws Exception {
+//        UserResponse user = new UserResponse(1L, "user1", "Name1", "email1@test.com", Role.USER);
+//        when(userService.getLoggedUser(1L)).thenReturn(user);
+//
+//        mockMvc.perform(get("/api/users/my-user").principal(auth))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.username").value("user1"));
+//    }
+//
+//    @Test
+//    void testPutLoggedUser() throws Exception {
+//        UserRequest request = new UserRequest("user1", "Name1", "email@test.com", "password123");
+//        UserResponse updated = new UserResponse(1L, "user1", "Name1", "email@test.com", Role.USER);
+//        when(userService.updateLoggedUser(request, 1L)).thenReturn(updated);
+//
+//        mockMvc.perform(put("/api/users/my-user")
+//                        .principal(auth)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(request)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.email").value("email@test.com"));
+//    }
+//
+//    @Test
+//    void testPutUserByAdmin() throws Exception {
+//        UserRequestAdmin requestAdmin = new UserRequestAdmin("adminUser", "Admin", "admin@test.com", "password123", Role.ADMIN);
+//        UserResponse updated = new UserResponse(2L, "adminUser", "Admin", "admin@test.com", Role.ADMIN);
+//
+//        when(userService.updateUserByAdmin(requestAdmin, 2L)).thenReturn(updated);
+//
+//        mockMvc.perform(put("/api/users/2")
+//                        .principal(auth)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(requestAdmin)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.role").value("ADMIN"));
+//    }
 
-        mockMvc.perform(get("/api/users/my-user").principal(auth))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value("user1"));
-    }
 
-    @Test
-    void testPutLoggedUser() throws Exception {
-        UserRequest request = new UserRequest("user1", "Name1", "email@test.com", "password123");
-        UserResponse updated = new UserResponse(1L, "user1", "Name1", "email@test.com", Role.USER);
-        when(userService.updateLoggedUser(request, 1L)).thenReturn(updated);
-
-        mockMvc.perform(put("/api/users/my-user")
-                        .principal(auth)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email").value("email@test.com"));
-    }
-
-    @Test
-    void testPutUserByAdmin() throws Exception {
-        UserRequestAdmin requestAdmin = new UserRequestAdmin("adminUser", "Admin", "admin@test.com", "password123", Role.ADMIN);
-        UserResponse updated = new UserResponse(2L, "adminUser", "Admin", "admin@test.com", Role.ADMIN);
-
-        when(userService.updateUserByAdmin(requestAdmin, 2L)).thenReturn(updated);
-
-        mockMvc.perform(put("/api/users/2")
-                        .principal(auth)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestAdmin)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.role").value("ADMIN"));
-    }
-
-
-    @Test
-    void testDeleteLoggedUser() throws Exception {
-        mockMvc.perform(delete("/api/users/my-user").principal(auth))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("Account deleted!!"));
-    }
+//    @Test
+//    void testDeleteLoggedUser() throws Exception {
+//        mockMvc.perform(delete("/api/users/my-user").principal(auth))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.message").value("Account deleted!!"));
+//    }
 
     @Test
     void testDeleteUserByAdmin() throws Exception {

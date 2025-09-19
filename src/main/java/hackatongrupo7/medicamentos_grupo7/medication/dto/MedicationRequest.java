@@ -20,8 +20,6 @@ public record MedicationRequest(
 
         Time hour,
 
-        String description,
-
-        Set<String> allergies
+        String description
 ) {
 }
