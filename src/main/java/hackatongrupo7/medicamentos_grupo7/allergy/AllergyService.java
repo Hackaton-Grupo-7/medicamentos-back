@@ -55,14 +55,14 @@ public class AllergyService {
                 .anyMatch(medication -> medication.getName().toLowerCase().trim().equals(allergyNameCleaned));
 
         if (hasConflict) {
-            throw new RuntimeException("You have that medication added now");
+            throw new RuntimeException("Ya tienes esa medicacion añadida, no puedes añadirla como alergia");
         }
 
         boolean hasConflictAllergy = listMyAllergy.stream()
                 .anyMatch(allergy -> allergy.getName().toLowerCase().trim().equals(allergyNameCleaned));
 
         if (hasConflict) {
-            throw new RuntimeException("You already have that allergy added");
+            throw new RuntimeException("Esta alergia ya ha sido añadida");
         }
 
         Allergy country = AllergyMapper.toEntity(allergyDTORequest,user );
