@@ -18,7 +18,7 @@ import java.util.Map;
 public class EmailService {
 
     private static final String UTF8_ENCODING = "UTF-8";
-    private static final String DASHBOARD_URL = "http://localhost:8080/swagger-ui/index.html#/";
+    private static final String DASHBOARD_URL = "http://localhost:5173/";
 
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
@@ -34,7 +34,7 @@ public class EmailService {
         String htmlContent = templateEngine.process("WelcomeUser", context);
 
         helper.setTo(toEmail);
-        helper.setSubject("Welcome to SleepUp!");
+        helper.setSubject("Welcome to Sanimed!");
         helper.setText(htmlContent, true);
 
         mailSender.send(message);
