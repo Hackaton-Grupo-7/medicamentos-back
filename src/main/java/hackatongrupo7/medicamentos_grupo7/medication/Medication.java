@@ -47,10 +47,5 @@ public class Medication {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "medication_allergies", joinColumns = @JoinColumn(name = "medication_id"))
-    @Column(name = "allergy")
-    private Set<String> allergies;
 }
     

@@ -1,5 +1,6 @@
 package hackatongrupo7.medicamentos_grupo7.allergy;
 
+import hackatongrupo7.medicamentos_grupo7.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,4 +19,7 @@ public class Allergy {
     @Column(unique = true, nullable = false, length = 100)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

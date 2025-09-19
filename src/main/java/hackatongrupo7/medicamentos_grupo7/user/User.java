@@ -32,9 +32,4 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_allergies", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "allergy")
-    private Set<String> allergies;
 }

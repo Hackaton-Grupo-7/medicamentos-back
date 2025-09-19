@@ -12,7 +12,7 @@ class AllergyMapperTest {
     void testToEntity() {
         AllergyDTORequest dtoRequest = new AllergyDTORequest("Peanuts");
 
-        Allergy allergy = AllergyMapper.toEntity(dtoRequest);
+        Allergy allergy = AllergyMapper.toEntity(dtoRequest, );
 
         assertNotNull(allergy, "The mapped Allergy should not be null");
         assertEquals(dtoRequest.name(), allergy.getName(), "The name should match the DTO");

@@ -1,5 +1,7 @@
 package hackatongrupo7.medicamentos_grupo7.medication;
 
+import hackatongrupo7.medicamentos_grupo7.allergy.Allergy;
+import hackatongrupo7.medicamentos_grupo7.allergy.AllergyRepository;
 import hackatongrupo7.medicamentos_grupo7.exceptions.EmptyListException;
 import hackatongrupo7.medicamentos_grupo7.exceptions.NotFoundException;
 import hackatongrupo7.medicamentos_grupo7.exceptions.UnauthorizedAccessException;
@@ -9,14 +11,12 @@ import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationResponseDetai
 import hackatongrupo7.medicamentos_grupo7.medication.dto.MedicationResponseSummary;
 import hackatongrupo7.medicamentos_grupo7.user.User;
 import hackatongrupo7.medicamentos_grupo7.utils.EntityUtil;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,27 +26,31 @@ public class MedicationService {
     private final MedicationRepository medicationRepository;
     private final MedicationMapper medicationMapper;
     private final EntityUtil mapperUtil;
+    private final AllergyRepository allergyRepository;
 
          @Transactional
     public MedicationResponseDetails saveMedication(MedicationRequest medication, User user) {
-        
-        List<Medication> existing = medicationRepository.findByUserId(user.getId())
+             List<Allergy> listMyAllergy = allergyRepository.findAllByUserId(user.getId());
+             String medicationNameCleaned = medication.name().toLowerCase().trim();
+
+             List<Medication> existing = medicationRepository.findByUserId(user.getId())
             .stream()
             .filter(m -> m.getName().equalsIgnoreCase(medication.name()))
             .toList();
         if (!existing.isEmpty()) {
-            throw new IllegalArgumentException("Ya tienes este medicamento añadido.");
+            throw new IllegalArgumentException("You already have this medication added.");
         }
+
+
+             boolean hasConflict = listMyAllergy.stream()
+                     .anyMatch(allergy -> allergy.getName().toLowerCase().trim().equals(medicationNameCleaned));
+
+             if (hasConflict) {
+                 throw new RuntimeException("You have that allergy added now");
+             }
+
 
         Medication medEntity = medicationMapper.toEntity(medication, user);
-
-        if (user.getAllergies() != null && medEntity.getAllergies() != null) {
-            for (String allergy : medEntity.getAllergies()) {
-                if (user.getAllergies().contains(allergy)) {
-                    throw new IllegalArgumentException("No puedes añadir este medicamento porque tienes alergia a él.");
-                }
-            }
-        }
 
         Medication saveMedication = medicationRepository.save(medEntity);
         saveMedication.setActive(true);

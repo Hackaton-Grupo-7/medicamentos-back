@@ -27,17 +27,6 @@ public class UserService implements UserDetailsService {
     private final UserServiceHelper userServiceHelper;
     private final MedicationRepository medicationRepository;
 
-    public void addAllergyToUser(User user, String allergy) {
-        List<Medication> medications = medicationRepository.findByUserId(user.getId());
-        for (Medication med : medications) {
-            if (med.getAllergies() != null && med.getAllergies().contains(allergy)) {
-                throw new IllegalArgumentException("No puedes añadir esta alergia porque estás tomando un medicamento que contiene esa alergia.");
-            }
-        }
-        user.getAllergies().add(allergy);
-        userRepository.save(user);
-    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userServiceHelper.findByUsername(username);

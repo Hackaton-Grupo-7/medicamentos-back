@@ -1,5 +1,6 @@
 package hackatongrupo7.medicamentos_grupo7.allergy;
 
+import hackatongrupo7.medicamentos_grupo7.user.User;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +29,7 @@ class AllergyTest {
 
     @Test
     void testAllergyAllArgsConstructor() {
-        Allergy allergy = new Allergy(3L, "Dust");
+        Allergy allergy = new Allergy(3L, "Dust", new User());
 
         assertEquals(3L, allergy.getId());
         assertEquals("Dust", allergy.getName());
