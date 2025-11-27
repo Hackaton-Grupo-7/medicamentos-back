@@ -10,8 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Aplica a todas las rutas del backend
-                .allowedOrigins("https://tu-frontend.vercel.app") // <--- pon aquí tu URL real del frontend en Vercel
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedOrigins("https://front-hackaton-grcl.vercel.app/")
                 .allowedHeaders("*")
                 .allowCredentials(true); // permite enviar cookies o headers de autenticación
     }
